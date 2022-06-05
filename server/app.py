@@ -7,7 +7,7 @@ import numpy as np
 import pandas
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
-import base64
+import random
 from PIL import Image
 from io import BytesIO
 import torch
@@ -17,8 +17,13 @@ import torchvision.models as models
 import json
 import time
 import load_model_and_predict
+from flask_socketio import SocketIO, emit
+import threading
+import sched
 app = Flask(__name__)
 CORS(app)
+socketio = SocketIO(app)
+
 
 bot_convo = {"intents": [
     {"tag": "greeting",
@@ -76,23 +81,41 @@ def get_analysis():
         return f"Falied due to {e}"
 
 
+def check_input(input):
+    try:
+        length = len(bot_convo["intents"][0]['responses'])
+        print(length)
+        random_index = random.randint(0, length-1)
+        for greeting in bot_convo["intents"][0]['patterns']:
+            if greeting.lower() == input.lower():
+                return bot_convo["intents"][0]['responses'][random_index]
+        for goodbye in bot_convo["intents"][1]['patterns']:
+            if goodbye.lower() == input.lower():
+                return bot_convo["intents"][1]['responses'][random_index]
+    except Exception as e:
+        print(e) 
 
-@app.route("/faceRecon")
-def face_recognition():
-    return "We've started"
 
 @app.route("/")
 def main():
-    print("hey hey hey hey")
-    return "Hello, World!"
+    try:
+        input = get_args(request, ['input'])
+        print(input)
+        bot_input = check_input(input[0])
+        print(bot_input)
+        return bot_input
+            
+    except Exception as e:
+        print(e)
+        return "Hello, World!"
 
-def run():
+@app.route('/analyze')
+def analyze():
     try:
         cam = VideoCapture(0)
         result, image = cam.read()
         gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
         faceCascade = cv.CascadeClassifier('./haarcascade_frontalface_default.xml')
-
         faces = faceCascade.detectMultiScale(
         gray,
         scaleFactor=1.1,
@@ -100,16 +123,14 @@ def run():
         minSize=(30, 30),
         flags=cv.CASCADE_SCALE_IMAGE
     )
-
 #     Draw a rectangle around the faces
         for (x, y, w, h) in faces:
-#         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
             face_only = image[y:y+h, x:x+w]
 
         if result:
             cv.imwrite("myImage.jpeg", face_only)
             emotion_result = load_model_and_predict.load_and_predict()
-            print(emotion_result)
+            return emotion_result
         else:
             print("Error in loading something")
     except Exception as e:
@@ -117,10 +138,8 @@ def run():
 
 
 if __name__ == '__main__':
-    while True:
-        run()
-        time.sleep(15)
-    # try:
-    #     app.run(port=5000, host='0.0.0.0')
-    # except:
-    #     print("Problem ")
+    print("Running")
+    try:
+        app.run(port=5000, host='0.0.0.0')
+    except:
+        print("Problem ")
