@@ -1,28 +1,14 @@
-from importlib.metadata import requires
-from inspect import getargs
-from msilib.schema import Error
 from cv2 import VideoCapture
-from itsdangerous import base64_decode
-import numpy as np
-import pandas
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
 import random
-from PIL import Image
-from io import BytesIO
-import torch
-import torch.optim as optim
 import cv2 as cv
-import torchvision.models as models
-import json
-import time
+
 import load_model_and_predict
-from flask_socketio import SocketIO, emit
-import threading
-import sched
+import nltk
+nltk.download('punkt')
 app = Flask(__name__)
 CORS(app)
-socketio = SocketIO(app)
 
 
 bot_convo = {"intents": [
@@ -34,7 +20,7 @@ bot_convo = {"intents": [
      "patterns": ["Bye", "See you later", "Goodbye"],
      "responses": ["See you later", "Have a nice day", "Bye! Come back again"]
     },
-    {"tag": "thanks",
+    {"tag": "how ",
      "patterns": ["Thanks", "Thank you", "That's helpful", "Thanks for the help"],
      "responses": ["Happy to help!", "Any time!", "My pleasure", "You're most welcome!"]
     },
@@ -46,13 +32,13 @@ bot_convo = {"intents": [
     "patterns": ["what is your name", "what should I call you", "whats your name?"],
     "responses": ["You can call me Joana.", "I'm Joana!", "Just call me as Joana"]
     },
-    {"tag": "help",
-    "patterns": ["Could you help me?", "give me a hand please", "Can you help?", "What can you do for me?", "I need a support", "I need a help", "support me please"],
-    "responses": ["Tell me how can assist you", "Tell me your problem to assist you", "Yes Sure, How can I support you"]
+    {"tag": "weather",
+    "patterns": ["How's the weather over there?", "What's the weather right now?", "Is the sun up yet?", "It's raining cats and dogs!"],
+    "responses": ["Tell me how can assist you", "Link to forecast sight", "Yes Sure, How can I support you"]
     },
-    {"tag": "createaccount",
-    "patterns": ["I need to create a new account", "how to open a new account", "I want to create an account", "can you create an account for me", "how to open a new account"],
-    "responses": ["You can just easily create a new account from our web site", "Just go to our web site and follow the guidelines to create a new account"]
+    {"tag": "season",
+    "patterns": ["What is your favorite season", "Summer is the best", "Can't stand the rain", "I have so many allergies right now"],
+    "responses": ["Winter is the season I prefer", "I love the rain and snow", "I don't care, as long as I don't get rusty"]
     },
     {"tag": "complaint",
     "patterns": ["have a complaint", "I want to raise a complaint", "there is a complaint about a service"],
@@ -70,19 +56,19 @@ def get_args(req, args):
     print("got all args")
     return args_list
 
-@app.route("/get_analysis")
-@cross_origin()
-def get_analysis():
-    # image = get_args(request, ['image'])
-    try:
-        
-        return "Got it"
-    except Exception as e:
-        return f"Falied due to {e}"
+
+def check_which_response_to_send(sentence):
+    sentence = ' '.join(sentence)
+    print(sentence)
+    
+    
+    
 
 
 def check_input(input):
     try:
+        # input_breakdown = nltk.sent_tokenize(input)
+        # response = check_which_response_to_send(input_breakdown)
         length = len(bot_convo["intents"][0]['responses'])
         print(length)
         random_index = random.randint(0, length-1)
@@ -100,7 +86,6 @@ def check_input(input):
 def main():
     try:
         input = get_args(request, ['input'])
-        print(input)
         bot_input = check_input(input[0])
         print(bot_input)
         return bot_input
@@ -111,6 +96,7 @@ def main():
 
 @app.route('/analyze')
 def analyze():
+    print("Analyzing face reaction")
     try:
         cam = VideoCapture(0)
         result, image = cam.read()
@@ -130,11 +116,12 @@ def analyze():
         if result:
             cv.imwrite("myImage.jpeg", face_only)
             emotion_result = load_model_and_predict.load_and_predict()
+
             return emotion_result
         else:
-            print("Error in loading something")
+            return "Error in loading something"
     except Exception as e:
-        print(e)
+        return e
 
 
 if __name__ == '__main__':

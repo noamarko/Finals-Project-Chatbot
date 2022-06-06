@@ -10,6 +10,7 @@ const App = () => {
   const [input, setInput] = useState("");
   const [messageFlag, setMessageFlag] = useState(false);
   const [botMessage, setBotMessage] = useState();
+  const [botAnalysis, setBotAnalysis] = useState();
   const sendMessageToBot = async () => {
     try {
       let response = await api.get(`/?input=${input}`);
@@ -23,22 +24,24 @@ const App = () => {
     }
   };
 
-  var intervalId = window.setInterval(async function(){
-    try{
+
+  useEffect(() => {
+    if (input.length > 1) sendMessageToBot();
+
+    const interval =  setInterval( async () => {
+      try{
       let analyze = await api.get("/analyze");
       console.log(analyze);
       if (analyze.status === 200) {
         setMessageFlag(false);
-        setBotMessage(analyze.data);
+        setBotAnalysis(analyze.data);
       }
     }
     catch(e){
       console.log(e)
     }
-  }, 15000);
-
-  useEffect(() => {
-    if (input.length > 1) sendMessageToBot();
+    }, 15000);
+    return () => clearInterval(interval);
   }, [input]);
 
   return (
@@ -51,6 +54,7 @@ const App = () => {
         <DisplayMessage
           input={input}
           botMessage={botMessage}
+          botAnalysis={botAnalysis}
           messageFlag={messageFlag}
         />
       </div>
