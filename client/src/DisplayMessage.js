@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Paper } from "@mui/material";
-function DisplayMessage({ input, messageFlag, botMessage }) {
+function DisplayMessage({ input, messageFlag, botMessage, botAnalysis }) {
   const [allInputs, setAllInputs] = useState([]);
 
   useEffect(() => {
@@ -40,6 +40,22 @@ function DisplayMessage({ input, messageFlag, botMessage }) {
         }}
       >
         {botMessage}
+      </Paper>
+      <Paper
+        sx={{
+          height: "fit-content",
+          float: "right",
+          backgroundColor: "green",
+          color: "white",
+          margin: 2,
+          padding: 3,
+          borderRadius: "20px",
+          position: "absolute",
+          right: 100,
+          top: 120,
+        }}
+      >
+        {botAnalysis}
       </Paper>
     </Paper>
   );

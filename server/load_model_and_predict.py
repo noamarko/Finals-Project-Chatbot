@@ -24,17 +24,16 @@ Emotions = ['disgust', 'happy', 'fear', 'angry', 'sad', 'surprise', 'neutral']
 def load_model(path, model, optimizer):
     checkpoint = torch.load(path)
     model.load_state_dict(checkpoint['model_state_dict'])
-    optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-    epoch = checkpoint['epoch']
-    loss = checkpoint['loss']
-    return epoch, loss
+    # optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+    # epoch = checkpoint['epoch']
+    # loss = checkpoint['loss']
+    # return epoch, loss
 
 # path to the model
 # CHANGE TO YOUR PATH
-MODEL_PATH = "C:/Users/noama/Desktop/Studies/Finals Project/finalsProject/server/best_model_cpu"
+MODEL_PATH = "C:/Users/noama/Desktop/GitHub/Finals-Project-Chatbot/server/best_model_cpu"
 
-
-_, loss = load_model(MODEL_PATH, model, optimizer)
+load_model(MODEL_PATH, model, optimizer)
 
 # Loading image and predict
 
@@ -49,15 +48,13 @@ test_transform = A.Compose([
 
 # CHANGE TO YOUR PATH
 def load_and_predict():
-    img_path = "C:/Users/noama/Desktop/Studies/Finals Project/finalsProject/server/myImage.jpeg"
+    img_path = "C:/Users/noama/Desktop/GitHub/Finals-Project-Chatbot/server/myImage.jpeg"
     # read img
-    img = cv.imread(img_path)
-    
+    img = cv.imread(img_path) 
     # resize
     img = cv.resize(img, (IMG_SIZE, IMG_SIZE))
     # required transformations
     img = test_transform(image = img)['image']
-
     # predicting
     # adding new axis, because the model waiting for 4 dim input
     output = model(img[np.newaxis, :, :])
@@ -66,9 +63,6 @@ def load_and_predict():
     emotion = Emotions[np.argmax(probabilities.detach().numpy())]
     return emotion
 
-# while True:
-#     load_and_predict()
-#     time.sleep(15)
 
 
 
