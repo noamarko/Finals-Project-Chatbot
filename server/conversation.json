@@ -26,7 +26,7 @@
     },
     {"tag": "weather",
     "patterns": ["How's the weather over there?", "What's the weather right now?", "Is the sun up yet?", "It's raining cats and dogs!"],
-    "responses": ["Tell me how can assist you", "Link to forecast sight", "Yes Sure, How can I support you"]
+    "responses": ["Link to forecast site https://ims.gov.il/en/Forecasts"]
     },
     {"tag": "season",
     "patterns": ["What is your favorite season", "Summer is the best", "Can't stand the rain", "I have so many allergies right now"],
