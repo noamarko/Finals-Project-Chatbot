@@ -3,6 +3,11 @@
      "patterns": ["Hi", "Hey", "Is anyone there?", "Hello", "Hay"],
      "responses": ["Hello", "Hi", "Hi there"]
     },
+    {"tag": "location",
+        "patterns": ["Where are you from?", "Where do you live?", "where are you living now?", 
+            "where is your home", ""],
+        "responses": ["I'm from Tel-Aviv", "I have no home, I'm a bot!", "Tel-Aviv"]
+    },
     {"tag": "goodbye",
      "patterns": ["Bye", "See you later", "Goodbye"],
      "responses": ["See you later", "Have a nice day", "Bye! Come back again"]
