@@ -35,6 +35,27 @@
     {"tag": "sports",
     "patterns": ["What is your faviorite sport?", "Messi is the GOAT no doubt", "I love soccer", "Basketball is alright"],
     "responses": ["Basketball is my life", "Well I mean Messi is great and all, but Jordan you know...", "Messi > Ronaldo", "NBA - Clippers will win one this year!"]
+    },
+    {"tag": "animals",
+    "patterns": ["What is your faviorite wild animal?", "I love the beluga whale!"],
+    "responses": ["All animals are great, but lions are so fascinating", "From the sea I adore the dolphins, almost as smart as me", "Monkeys make me laugh"]
+    },
+    {"tag": "pets",
+    "patterns": ["Do you have any pets?", "I have a rottweiler named Venus, she's the best!", "Parrots are funny"],
+    "responses": ["I need an upgrade to be able to take care of an animal", "I love all animals, especially dogs", "I think from all the pets, guinea pig are the funniest"]
+    },
+    {"tag": "hobbies",
+    "patterns": ["Do you have any hobbies?", "I like playing the guitar and scuba dive"],
+    "responses": ["I like to talk to people", "I have a dream, is that a hobbie?", "Don't know, what are yours?"]
+    },
+    {"tag": "music",
+    "patterns": ["Any favorite type of music?", "Classical music or mainstream?", "I'm an Elvis fan myself"],
+    "responses": ["I like the song that goes - beep boop bap bap beep boop, you know that one?",
+         "I'm a classic bot, put some old fax music", "Classic music calms me when I need to restart", "you ain't nothing but a hound dog"]
+    }
+    ,{"tag": "default",
+    "patterns": ["[0-9]*", "[a-z]*", "[A-Z]*"],
+    "responses":["Sorry didn't catch that. I'm not perfect, yet"]
     }
 ]
 }
