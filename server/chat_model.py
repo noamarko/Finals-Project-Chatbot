@@ -1,22 +1,23 @@
 import json 
 import pickle
 import numpy as np
-from tensorflow import keras
+# from tensorflow import keras
+import keras
 
 
-with open('D:\Development\Final_Project_Chatbot\Finals-Project-Chatbot\server\models\chat_model\intents.json') as file:
+with open('D:/Development/Final_Project_Chatbot/Finals-Project-Chatbot/server/models/chat_model/intents.json') as file:
     data = json.load(file)
 
 def load_model():
     # load trained model
-    model = keras.models.load_model('D:\Development\Final_Project_Chatbot\Finals-Project-Chatbot\server\models\chat_model\chat_model')
+    model = keras.models.load_model('D:/Development/Final_Project_Chatbot/Finals-Project-Chatbot/server/models/chat_model/chat_model')
 
     # load tokenizer object
-    with open('D:\Development\Final_Project_Chatbot\Finals-Project-Chatbot\server\models\chat_model\tokenizer.pickle', 'rb') as handle:
+    with open('D:/Development/Final_Project_Chatbot/Finals-Project-Chatbot/server/models/chat_model/tokenizer.pickle', 'rb') as handle:
         tokenizer = pickle.load(handle)
 
     # load label encoder object
-    with open('D:\Development\Final_Project_Chatbot\Finals-Project-Chatbot\server\models\chat_model\label_encoder.pickle', 'rb') as enc:
+    with open('D:/Development/Final_Project_Chatbot/Finals-Project-Chatbot/server/models/chat_model/label_encoder.pickle', 'rb') as enc:
         lbl_encoder = pickle.load(enc)
     
     return model, tokenizer, lbl_encoder
