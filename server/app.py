@@ -3,7 +3,7 @@ from flask import Flask, request
 from flask_cors import CORS, cross_origin
 import random
 import cv2 as cv
-
+import chat_model
 import load_model_and_predict
 import nltk
 nltk.download('punkt')
@@ -86,8 +86,9 @@ def check_input(input):
 def main():
     try:
         input = get_args(request, ['input'])
-        bot_input = check_input(input[0])
-        print(bot_input)
+        # bot_input = check_input(input[0])
+        bot_input = chat_model.answer(input)
+        # print(bot_input)
         return bot_input
             
     except Exception as e:
