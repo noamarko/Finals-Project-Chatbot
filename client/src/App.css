@@ -8,3 +8,27 @@
 .inputRounded .MuiOutlinedInput-root {
   border-radius: 20px;
 }
+
+.convo-handler {
+  overflow-y: scroll;
+  height:650px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.botmessages {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width:100%;
+  max-height: 640px;
+}
+.messages {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width:100%;
+  max-height: 640px;
+}
+

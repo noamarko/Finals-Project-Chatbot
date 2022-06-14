@@ -31,7 +31,7 @@ def load_model(path, model, optimizer):
 
 # path to the model
 # CHANGE TO YOUR PATH
-MODEL_PATH = "D:/Development/Final_Project_Chatbot/Finals-Project-Chatbot/server/best_model_cpu"
+MODEL_PATH = "C:/Users/noama/Desktop/GitHub/Finals-Project-Chatbot/server/best_model_cpu"
 
 
 # MODEL_PATH = "C:/Users/noama/Desktop/GitHub/Finals-Project-Chatbot/server/best_model_cpu"
@@ -51,7 +51,7 @@ test_transform = A.Compose([
 
 # CHANGE TO YOUR PATH
 def load_and_predict():
-    img_path = "D:/Development/Final_Project_Chatbot/Finals-Project-Chatbot/server/myImage.jpeg"
+    img_path = "C:/Users/noama/Desktop/GitHub/Finals-Project-Chatbot/server/myImage.jpeg"
     # img_path = "C:/Users/noama/Desktop/GitHub/Finals-Project-Chatbot/server/myImage.jpeg"
     # read img
     img = cv.imread(img_path) 

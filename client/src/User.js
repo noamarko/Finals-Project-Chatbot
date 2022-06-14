@@ -23,7 +23,7 @@ function User({ setInput, setMessageFlag }) {
       placeholder="Send a message"
       variant="outlined"
       size="large"
-      sx={{ width: "100%" }}
+      sx={{ width: "100%", top: -5 }}
       onChange={handleChange}
       onKeyPress={onKeyPress}
       value={message}

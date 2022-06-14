@@ -4,12 +4,13 @@ import "./App.css";
 import Bot from "./Bot";
 import User from "./User";
 import DisplayMessage from "./DisplayMessage";
+import DisplayBotMessage from "./DisplayBotMessage";
 import api from "./api";
 import { inputUnstyledClasses } from "@mui/base";
 const App = () => {
   const [input, setInput] = useState("");
   const [messageFlag, setMessageFlag] = useState(false);
-  const [botMessage, setBotMessage] = useState();
+  const [botMessage, setBotMessage] = useState([]);
   const [botAnalysis, setBotAnalysis] = useState();
   const sendMessageToBot = async () => {
     try {
@@ -17,60 +18,53 @@ const App = () => {
       console.log(response);
       if (response.status === 200) {
         setMessageFlag(false);
-        setBotMessage(response.data);
+        setBotMessage([...botMessage, response.data]);
       }
     } catch (e) {
       console.log(e);
     }
   };
 
-
   useEffect(() => {
     if (input.length > 1) sendMessageToBot();
 
-    const interval =  setInterval( async () => {
-      try{
-      let analyze = await api.get("/analyze");
-      console.log(analyze);
-      if (analyze.status === 200) {
-        setMessageFlag(false);
-        setBotAnalysis(analyze.data);
-      }
-    }
-    catch(e){
-      console.log(e)
-    }
-    }, 15000);
-    return () => clearInterval(interval);
+    // const interval =  setInterval( async () => {
+    //   try{
+    //   let analyze = await api.get("/analyze");
+    //   console.log(analyze);
+    //   if (analyze.status === 200) {
+    //     setMessageFlag(false);
+    //     setBotAnalysis(analyze.data);
+    //   }
+    // }
+    // catch(e){
+    //   console.log(e)
+    // }
+    // }, 15000);
+    // return () => clearInterval(interval);
   }, [input]);
 
   return (
     <>
-      <div
-      // style={{
-      //   height: 1000,
-      // }}
-      >
-        <DisplayMessage
-          input={input}
-          botMessage={botMessage}
-          botAnalysis={botAnalysis}
-          messageFlag={messageFlag}
-        />
+      <div className="convo-handler">
+        {input.length > 0 && (
+          <DisplayMessage
+            input={input}
+            botMessage={botMessage}
+            botAnalysis={botAnalysis}
+            messageFlag={messageFlag}
+          />
+        )}
+        {/* || botAnalysis.length > 0 */}
+        {botMessage.length > 0 && (
+            <DisplayBotMessage
+              botMessage={botMessage}
+              botAnalysis={botAnalysis}
+              messageFlag={messageFlag}
+            />
+          )}
       </div>
-      <div
-        style={{
-          float: "left",
-          position: "absolute",
-          bottom: 10,
-          width: "100%",
-        }}
-      >
-        <User setInput={setInput} setMessageFlag={setMessageFlag} />
-      </div>
-      {/* <div style={{ float: "left", backgroundColor: "green" }}>
-        <Bot />
-      </div> */}
+      <User setInput={setInput} setMessageFlag={setMessageFlag} />
     </>
   );
 };
