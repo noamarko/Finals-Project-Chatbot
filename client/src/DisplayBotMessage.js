@@ -12,6 +12,7 @@ function DisplayBotMessage({ messageFlag, botMessage, botAnalysis }) {
     // }
     setAllBotInpues([...allBotInputs, botMessage]);
   }, [botMessage]);
+  
 
   return (
     <div className="botmessages">
@@ -28,8 +29,8 @@ function DisplayBotMessage({ messageFlag, botMessage, botAnalysis }) {
               width: "fit-content",
               borderRadius: "20px",
               position: "relative",
-              left: 450,
-              top: 50 + index * 30,
+              left: 250,
+              top: 30 + index * 30,
             }}
           >
             {message}
