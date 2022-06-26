@@ -24,17 +24,11 @@ Emotions = ['disgust', 'happy', 'fear', 'angry', 'sad', 'surprise', 'neutral']
 def load_model(path, model, optimizer):
     checkpoint = torch.load(path)
     model.load_state_dict(checkpoint['model_state_dict'])
-    # optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-    # epoch = checkpoint['epoch']
-    # loss = checkpoint['loss']
-    # return epoch, loss
 
 # path to the model
-# CHANGE TO YOUR PATH
+# Change to your best_model_cpu path
 # MODEL_PATH = "C:/Users/noama/Desktop/GitHub/Finals-Project-Chatbot/server/best_model_cpu"
-
-
-MODEL_PATH = "D:/Development/Final_Project_Chatbot/Finals-Project-Chatbot/server/best_model_cpu"
+MODEL_PATH = "D:/Development/Final_Project_Chatbot/Finals-Project-Chatbot/server/models/fer_model/best_model_cpu"
 
 load_model(MODEL_PATH, model, optimizer)
 

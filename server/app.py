@@ -3,7 +3,6 @@ from cv2 import VideoCapture
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
 import urllib.request, json
-import random
 import cv2 as cv
 import load_model_and_predict
 import chat_model

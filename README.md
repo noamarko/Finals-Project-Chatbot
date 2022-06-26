@@ -28,3 +28,6 @@ Open terminal in the client folder and run:
 `npm start`  
 Open terminal in the server folder and run:   
 `python3 app.py` if it doesn't work then try: `python app.py`  
+
+**NOTE:** There are several locations that are paths to specific folders, in order to run the program - change the paths to your own directory
+The locations are in chat_model.py and load_model_and_predict.py
