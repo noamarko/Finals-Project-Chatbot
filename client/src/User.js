@@ -11,9 +11,13 @@ function User({ setInput, setMessageFlag }) {
 
   const onKeyPress = (e) => {
     if (e.key === "Enter") {
-      setInput(message);
-      setMessageFlag(true);
-      setMessage("");
+      if(/^[a-zA-Z, ?!]+$/.test(message)){
+        setInput(message);
+        setMessageFlag(true);
+        setMessage("");
+      }
+      else //print on user screen that the input is invalid
+        console.log("Input invalid son")
     }
   };
 

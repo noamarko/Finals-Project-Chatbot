@@ -33,7 +33,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    if (input.length > 1) sendMessageToBot();
+    if (messageFlag) sendMessageToBot();
     scrollToBottom();
     const interval = setInterval(async () => {
       try {
@@ -41,7 +41,7 @@ const App = () => {
         console.log(analyze);
         if (analyze.status === 200) {
           setMessageFlag(false);
-          setBotMessage([...botMessage, analyze.data]);
+          setBotAnalysis([...botAnalysis, analyze.data]);
         }
       } catch (e) {
         console.log(e);

@@ -21,14 +21,14 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  width:100%;
+  width:40%;
   max-height: 550px;
 }
 .messages {
   display: flex;
   flex-direction: column;
   height: 100%;
-  width:100%;
+  width:40%;
   max-height: 640px;
 }
 
