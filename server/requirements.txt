@@ -1,0 +1,16 @@
+albumentations 
+Flask==2.0.3
+opencv-python==4.5.5.62
+urllib3==1.26.9
+Flask-Cors==3.0.10  
+keras 
+Keras-Preprocessing  
+matplotlib==3.5.2
+matplotlib-inline==0.1.3
+numpy==1.22.2
+seaborn  
+pandas 
+scikit-learn==1.0.2
+torchvision==0.12.0
+tensorflow==2.6.0  
+torch==1.11.0
