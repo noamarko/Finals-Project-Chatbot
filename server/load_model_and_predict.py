@@ -2,6 +2,7 @@
 
 
 # model
+from doctest import Example
 import time
 import torch
 import torch.nn as nn
@@ -31,10 +32,10 @@ def load_model(path, model, optimizer):
 
 # path to the model
 # CHANGE TO YOUR PATH
-# MODEL_PATH = "C:/Users/noama/Desktop/GitHub/Finals-Project-Chatbot/server/best_model_cpu"
+MODEL_PATH = "C:/Users/noama/Desktop/GitHub/Finals-Project-Chatbot/server/best_model_cpu"
 
 
-MODEL_PATH = "D:/Development/Final_Project_Chatbot/Finals-Project-Chatbot/server/best_model_cpu"
+# MODEL_PATH = "D:/Development/Final_Project_Chatbot/Finals-Project-Chatbot/server/best_model_cpu"
 
 load_model(MODEL_PATH, model, optimizer)
 
@@ -51,22 +52,24 @@ test_transform = A.Compose([
 
 # CHANGE TO YOUR PATH
 def load_and_predict():
-    # img_path = "C:/Users/noama/Desktop/GitHub/Finals-Project-Chatbot/server/myImage.jpeg"
-    img_path = "D:/Development/Final_Project_Chatbot/Finals-Project-Chatbot/server/myImage.jpeg"
-    # read img
-    img = cv.imread(img_path) 
-    # resize
-    img = cv.resize(img, (IMG_SIZE, IMG_SIZE))
-    # required transformations
-    img = test_transform(image = img)['image']
-    # predicting
-    # adding new axis, because the model waiting for 4 dim input
-    output = model(img[np.newaxis, :, :])
-    # applying softmax to get the probabilities
-    probabilities = torch.nn.functional.softmax(output[0], dim=0)
-    emotion = Emotions[np.argmax(probabilities.detach().numpy())]
-    return emotion
-
+    try:
+        img_path = "C:/Users/noama/Desktop/GitHub/Finals-Project-Chatbot/server/myImage.jpeg"
+        # img_path = "C:/Users/noama/Desktop/GitHub/Finals-Project-Chatbot/server/myImage.jpeg"
+        # read img
+        img = cv.imread(img_path) 
+        # resize
+        img = cv.resize(img, (IMG_SIZE, IMG_SIZE))
+        # required transformations
+        img = test_transform(image = img)['image']
+        # predicting
+        # adding new axis, because the model waiting for 4 dim input
+        output = model(img[np.newaxis, :, :])
+        # applying softmax to get the probabilities
+        probabilities = torch.nn.functional.softmax(output[0], dim=0)
+        emotion = Emotions[np.argmax(probabilities.detach().numpy())]
+        return emotion
+    except Exception as e:
+        return str(e)
 
 
 

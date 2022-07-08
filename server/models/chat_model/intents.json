@@ -201,17 +201,6 @@
             ]
         },
         {
-            "tag": "default",
-            "patterns": [
-                "[0-9]*",
-                "[a-z]*",
-                "[A-Z]*"
-            ],
-            "responses": [
-                "Sorry didn't catch that, can you rephrase? I'm not perfect, yet"
-            ]
-        },
-        {
             "tag": "happy",
             "patterns": [
                 "happy"
@@ -230,8 +219,7 @@
             "responses": [
                 "Turn that frown upside down!",
                 "What's the matter my friend?",
-                "Can I help to ease your pain?",
-                "I hope this joke will make you feel happy - "
+                "Can I help to ease your pain?"
             ]
         }
     ]
